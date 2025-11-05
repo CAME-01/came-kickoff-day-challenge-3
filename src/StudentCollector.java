@@ -17,7 +17,9 @@ public class StudentCollector {
         while (true) {
             System.out.print("Enter Student ID (or type 'exit' to finish): ");
             String studentId = scanner.nextLine().trim();
-            if (studentId.equalsIgnoreCase("exit")) break;
+            if (studentId.equalsIgnoreCase("exit")) {
+                break;
+            }
 
             if (studentId.isEmpty()) {
                 System.out.println("Student ID cannot be empty. Please try again.\n");

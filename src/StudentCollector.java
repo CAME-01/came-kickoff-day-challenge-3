@@ -1,4 +1,7 @@
-import java.util.*;
+import java.io.*;
+import java.util.ArrayList;
+import java.util.List;
+import java.util.Scanner;
 
 public class StudentCollector {
 
@@ -35,8 +38,30 @@ public class StudentCollector {
         if (students.isEmpty()) {
             System.out.println("No records to save. Goodbye!");
         } else {
+            writeStudentsToCSV(students);
             System.out.println("Saved " + students.size() + " record(s) to " + FILE_NAME + ". Goodbye!");
         }
         scanner.close();
+    }
+
+    private static void writeStudentsToCSV(List<Student> students) {
+        boolean fileExists = new File(FILE_NAME).exists();
+
+        try (FileWriter fw = new FileWriter(FILE_NAME, true);
+             BufferedWriter bw = new BufferedWriter(fw);
+             PrintWriter out = new PrintWriter(bw)) {
+
+            // Write header only if file didn't exist
+            if (!fileExists) {
+                out.println("student_id,name");
+            }
+
+            for (Student s : students) {
+                out.println(s.getStudentId() + "," + s.getName());
+            }
+
+        } catch (IOException e) {
+            System.out.println("Error writing to file: " + e.getMessage());
+        }
     }
 }
